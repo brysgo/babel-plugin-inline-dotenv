@@ -1,4 +1,4 @@
-require('dotenv').config();
+var dotenv;
 
 module.exports = function (opts) {
   var t = opts.types;
@@ -6,6 +6,7 @@ module.exports = function (opts) {
     visitor: {
       MemberExpression(path, state) {
         if (path.get("object").matchesPattern("process.env")) {
+          if (!dotenv) { dotenv = require('dotenv').config(state.opts) }
           let key = path.toComputedKey();
           if (t.isStringLiteral(key)) {
             let name = key.value;
