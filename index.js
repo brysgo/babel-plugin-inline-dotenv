@@ -8,6 +8,7 @@ module.exports = function (options) {
   return {
     visitor: {
       MemberExpression: function MemberExpression(path, state) {
+        if(t.isAssignmentExpression(path.parent) && path.parent.left == path.node) return;
         if (path.get("object").matchesPattern("process.env")) {
           if (!dotenv) {
             dotenv = require('dotenv').config(state.opts);
