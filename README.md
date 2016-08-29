@@ -2,6 +2,14 @@
 
 Load your `.env` file and replace `process.env.MY_VARIABLE` with the value you set.
 
+tl;dr
+
+It actually replaces `process.env.MY_VARIABLE` with:
+
+    process && process.env && process.env.MY_VARIABLE || 'value assigned to variable in dotenv'
+
+This way, if the value is available at runtime it will be used instead.
+
 ## Installation
 
 ```sh
