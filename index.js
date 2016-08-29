@@ -1,20 +1,37 @@
+"use strict";
+
 var dotenv;
 
-module.exports = function (opts) {
-  var t = opts.types;
+module.exports = function (options) {
+  var t = options.types;
+
   return {
     visitor: {
-      MemberExpression(path, state) {
+      MemberExpression: function MemberExpression(path, state) {
         if (path.get("object").matchesPattern("process.env")) {
-          if (!dotenv) { dotenv = require('dotenv').config(state.opts) }
-          let key = path.toComputedKey();
+          if (!dotenv) {
+            dotenv = require('dotenv').config(state.opts);
+          }
+          var key = path.toComputedKey();
           if (t.isStringLiteral(key)) {
-            let name = key.value;
-            let value = (state.opts.env && name in state.opts.env) ? state.opts.env[name] : process.env[name];
-            path.replaceWith(t.valueToNode(value));
+            var name = key.value;
+            var value = state.opts.env && name in state.opts.env ? state.opts.env[name] : process.env[name];
+            var me = t.memberExpression;
+            var i = t.identifier;
+            var le = t.logicalExpression;
+
+            path.replaceWith(
+              le('||', 
+                le('&&', 
+                  le('&&', i('process'), me(i('process'), i('env'))),
+                  me(i('process.env'), i(name))
+                ), 
+                t.valueToNode(value)
+              )
+            );
           }
         }
       }
     }
   };
-}
+};
