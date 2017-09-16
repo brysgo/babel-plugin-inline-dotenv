@@ -1,5 +1,7 @@
 # babel-plugin-inline-dotenv
 
+[![status](https://circleci.com/gh/brysgo/babel-plugin-inline-dotenv.svg?style=shield)](https://circleci.com/gh/brysgo/babel-plugin-inline-dotenv)
+
 Load your `.env` file and replace `process.env.MY_VARIABLE` with the value you set.
 
 tl;dr
