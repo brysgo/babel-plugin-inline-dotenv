@@ -14,7 +14,7 @@ module.exports = function (options) {
         if(t.isAssignmentExpression(path.parent) && path.parent.left == path.node) return;
         if (path.get("object").matchesPattern("process.env")) {
           if (!dotenv) {
-            dotenv = require('dotenv').config(Object.assign({}, state.opts, defaultOptions);
+            dotenv = require('dotenv').config(Object.assign({}, defaultOptions, state.opts);
           }
           var key = path.toComputedKey();
           if (t.isStringLiteral(key)) {
