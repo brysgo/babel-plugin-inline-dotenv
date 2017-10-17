@@ -2,7 +2,7 @@
 
 var dotenv;
 var defaultOptions = {
-  silence: true
+  silent: true
 };
 
 module.exports = function (options) {
