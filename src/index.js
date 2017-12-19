@@ -12,6 +12,10 @@ module.exports = function (options) {
         if (path.get("object").matchesPattern("process.env")) {
           if (!dotenv) {
             dotenv = require('dotenv').config(state.opts);
+            var dotenvExpand;
+            try { dotenvExpand = require('dotenv-expand'); } catch(e) {}
+            if (dotenvExpand)
+              dotenvExpand(dotenv);
           }
           var key = path.toComputedKey();
           if (t.isStringLiteral(key)) {

@@ -6,6 +6,7 @@
 // A base class is defined using the new reserved 'class' keyword
 
 const EXAMPLE_ENV_VAR = process.env.EXAMPLE_ENV_VAR;
+const EXAMPLE_ENV_VAR_EXPAND = process.env.EXAMPLE_ENV_VAR_EXPAND;
 
 class Polygon {
   // ..and an (optional) custom class constructor. If one is
