@@ -1,8 +1,7 @@
 {
   "name": "babel-plugin-inline-dotenv",
-  "version": "1.1.1",
-  "description":
-    "Load your `.env` file and replace `process.env.MY_VARIABLE` with the value you set.",
+  "version": "1.1.2",
+  "description": "Load your `.env` file and replace `process.env.MY_VARIABLE` with the value you set.",
   "main": "src/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register",
@@ -12,7 +11,11 @@
     "type": "git",
     "url": "git+https://github.com/brysgo/babel-plugin-inline-dotenv.git"
   },
-  "keywords": ["babel", "plugin", "dotenv"],
+  "keywords": [
+    "babel",
+    "plugin",
+    "dotenv"
+  ],
   "author": "Bryan Goldstein",
   "license": "ISC",
   "bugs": {
@@ -28,7 +31,7 @@
     "babel-eslint": "^8.0.1",
     "babel-preset-es2015": "^6.1.18",
     "babel-register": "^6.2.0",
-    "mocha": "^4.0.1",
-    "dotenv-expand": "^4.0.1"    
+    "dotenv-expand": "^4.0.1",
+    "mocha": "^4.0.1"
   }
 }
