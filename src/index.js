@@ -24,16 +24,19 @@ module.exports = function (options) {
             var me = t.memberExpression;
             var i = t.identifier;
             var le = t.logicalExpression;
+            var replace = state.opts.unsafe
+              ? t.valueToNode(value)
+              : le(
+                  "||",
+                  le(
+                    "&&",
+                    le("&&", i("process"), me(i("process"), i("env"))),
+                    me(i("process.env"), i(name))
+                  ),
+                  t.valueToNode(value)
+                );
 
-            path.replaceWith(
-              le('||', 
-                le('&&', 
-                  le('&&', i('process'), me(i('process'), i('env'))),
-                  me(i('process.env'), i(name))
-                ), 
-                t.valueToNode(value)
-              )
-            );
+            path.replaceWith(replace);
           }
         }
       }
