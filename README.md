@@ -44,6 +44,17 @@ With options:
 }
 ```
 
+To replace with env value without `process && process.env && process.env.MY_VARIABLE ||` safety:
+
+```js
+{
+  "plugins": [["inline-dotenv",{
+    unsafe: true
+  }]]
+}
+```
+
+
 ### Via CLI
 
 ```sh
