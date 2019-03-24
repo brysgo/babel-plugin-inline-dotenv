@@ -7,6 +7,8 @@
 
 const EXAMPLE_ENV_VAR = process.env.EXAMPLE_ENV_VAR;
 const EXAMPLE_ENV_VAR_EXPAND = process.env.EXAMPLE_ENV_VAR_EXPAND;
+const EXAMPLE_ENV_VAR_SECRET = process.env.EXAMPLE_ENV_VAR_SECRET;
+const EXAMPLE_ENV_VAR_SYSTEM = process.env.EXAMPLE_ENV_VAR_SYSTEM;
 
 class Polygon {
   // ..and an (optional) custom class constructor. If one is

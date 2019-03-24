@@ -4,7 +4,7 @@
   "description": "Load your `.env` file and replace `process.env.MY_VARIABLE` with the value you set.",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --require babel-core/register",
+    "test": "EXAMPLE_ENV_VAR_SYSTEM=system EXAMPLE_ENV_VAR_SECRET=secret mocha --require babel-core/register",
     "test:watch": "npm run test -- --watch"
   },
   "repository": {

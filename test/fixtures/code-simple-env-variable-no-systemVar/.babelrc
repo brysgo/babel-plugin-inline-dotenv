@@ -1,8 +1,7 @@
 {
   "plugins": [
     ["../../../src", {
-      "unsafe": true,
-      "systemVar":"overwrite",
+      "systemVar" : "disable",
       "transforms": [{
         "transform": "transform-lib"
       }]
