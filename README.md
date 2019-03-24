@@ -54,6 +54,22 @@ To replace with env value without `process && process.env && process.env.MY_VARI
 }
 ```
 
+The plugin support 3 mode to read the env var from the system :
+
+```js
+{
+  "plugins": [["inline-dotenv",{
+    systemVar: 'all' | 'overwrite' | 'disable'
+  }]]
+}
+```
+
+- `all` _default_, every env var found in process.env will be used
+> ⚠️ This could leak super secret stuffs !
+
+- `overwrite`, the value in process.env will overwrite the one present in .env only. Your .env file act as a whitelist
+
+- `disable`, the process.env will not be used at all
 
 ### Via CLI
 
