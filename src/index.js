@@ -1,6 +1,7 @@
 "use strict";
 
 var fs = require('fs');
+var pathResolve = require('path').resolve;
 
 var dotenvContent;
 
@@ -33,8 +34,19 @@ module.exports = function (options) {
         if(t.isAssignmentExpression(path.parent) && path.parent.left == path.node) return;
         if (path.get("object").matchesPattern("process.env")) {
           if (!dotenvContent) {
-            var envFilePath = state.opts.path || './.env'              
-            dotenvContent = require('dotenv').parse(fs.readFileSync(envFilePath));
+            var dotenvPath = pathResolve(process.cwd(), '.env')
+            var encoding = 'utf8'
+            var debug = false
+            if (state.opts.path != null) {
+              dotenvPath = state.opts.path
+            }
+            if (state.opts.encoding != null) {
+              encoding = state.opts.encoding
+            }
+            if (state.opts.debug != null) {
+              debug = true
+            }           
+            dotenvContent = require('dotenv').parse(fs.readFileSync(dotenvPath, {encoding:encoding}), {debug:debug});
             var dotenvExpand;
             try { dotenvExpand = require('dotenv-expand'); } catch(e) {}
             if (dotenvExpand)
