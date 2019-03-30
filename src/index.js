@@ -1,6 +1,29 @@
 "use strict";
 
-var dotenv;
+var fs = require('fs');
+var pathResolve = require('path').resolve;
+
+var dotenvContent;
+
+function getValue(dotenvContent, systemContent, opts, name) {
+  if (opts.env && name in opts.env) return opts.env[name];
+
+  switch (opts.systemVar) {
+    case "overwrite":
+      if (name in dotenvContent && name in systemContent)
+        return systemContent[name];
+      if (name in dotenvContent) return dotenvContent[name];
+      return;
+    case "disable":
+      if (name in dotenvContent) return dotenvContent[name];
+      return;
+    case "all":
+    default:
+      if (name in systemContent) return systemContent[name];
+      if (name in dotenvContent) return dotenvContent[name];
+      return;
+  }
+}
 
 module.exports = function (options) {
   var t = options.types;
@@ -10,17 +33,29 @@ module.exports = function (options) {
       MemberExpression: function MemberExpression(path, state) {
         if(t.isAssignmentExpression(path.parent) && path.parent.left == path.node) return;
         if (path.get("object").matchesPattern("process.env")) {
-          if (!dotenv) {
-            dotenv = require('dotenv').config(state.opts);
+          if (!dotenvContent) {
+            var dotenvPath = pathResolve(process.cwd(), '.env')
+            var encoding = 'utf8'
+            var debug = false
+            if (state.opts.path != null) {
+              dotenvPath = state.opts.path
+            }
+            if (state.opts.encoding != null) {
+              encoding = state.opts.encoding
+            }
+            if (state.opts.debug != null) {
+              debug = true
+            }           
+            dotenvContent = require('dotenv').parse(fs.readFileSync(dotenvPath, {encoding:encoding}), {debug:debug});
             var dotenvExpand;
             try { dotenvExpand = require('dotenv-expand'); } catch(e) {}
             if (dotenvExpand)
-              dotenvExpand(dotenv);
+              dotenvContent = dotenvExpand({parsed:dotenvContent, ignoreProcessEnv:true}).parsed;
           }
           var key = path.toComputedKey();
           if (t.isStringLiteral(key)) {
             var name = key.value;
-            var value = state.opts.env && name in state.opts.env ? state.opts.env[name] : process.env[name];
+            var value = getValue(dotenvContent, process.env, state.opts, name)
             var me = t.memberExpression;
             var i = t.identifier;
             var le = t.logicalExpression;
