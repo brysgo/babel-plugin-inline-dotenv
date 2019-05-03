@@ -5,6 +5,28 @@ var pathResolve = require('path').resolve;
 
 var dotenvContent;
 
+function loadDotenvContent (opts){
+    var dotenvPath = pathResolve(process.cwd(), '.env')
+    var encoding = 'utf8'
+    var debug = false
+    if (opts.path != null) {
+      dotenvPath = opts.path
+    }
+    if (opts.encoding != null) {
+      encoding = opts.encoding
+    }
+    if (opts.debug != null) {
+      debug = true
+    }
+    var fileContent;
+    try { fileContent = fs.readFileSync(dotenvPath, {encoding:encoding}) } catch(e) {};
+    dotenvContent = fileContent ? require('dotenv').parse(fileContent, {debug:debug}) : {};
+    var dotenvExpand;
+    try { dotenvExpand = require('dotenv-expand'); } catch(e) {}
+    if (dotenvExpand)
+      dotenvContent = dotenvExpand({parsed:dotenvContent, ignoreProcessEnv:true}).parsed;
+}
+
 function getValue(dotenvContent, systemContent, opts, name) {
   if (opts.env && name in opts.env) return opts.env[name];
 
@@ -34,23 +56,7 @@ module.exports = function (options) {
         if(t.isAssignmentExpression(path.parent) && path.parent.left == path.node) return;
         if (path.get("object").matchesPattern("process.env")) {
           if (!dotenvContent) {
-            var dotenvPath = pathResolve(process.cwd(), '.env')
-            var encoding = 'utf8'
-            var debug = false
-            if (state.opts.path != null) {
-              dotenvPath = state.opts.path
-            }
-            if (state.opts.encoding != null) {
-              encoding = state.opts.encoding
-            }
-            if (state.opts.debug != null) {
-              debug = true
-            }           
-            dotenvContent = require('dotenv').parse(fs.readFileSync(dotenvPath, {encoding:encoding}), {debug:debug});
-            var dotenvExpand;
-            try { dotenvExpand = require('dotenv-expand'); } catch(e) {}
-            if (dotenvExpand)
-              dotenvContent = dotenvExpand({parsed:dotenvContent, ignoreProcessEnv:true}).parsed;
+            loadDotenvContent(state.opts);
           }
           var key = path.toComputedKey();
           if (t.isStringLiteral(key)) {
