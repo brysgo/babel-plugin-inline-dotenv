@@ -1,8 +1,7 @@
-import path from "path";
-import fs from "fs";
-import assert from "assert";
-import { transformFileSync } from "babel-core";
-import plugin from "../src";
+const path = require("path");
+const fs = require("fs");
+const assert = require("assert");
+const { transformFileSync } = require("babel-core");
 
 function trim(str) {
   return str.replace(/^\s+|\s+$/, "");
