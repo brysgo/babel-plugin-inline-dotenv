@@ -1,12 +1,9 @@
 import path from "path";
 import fs from "fs";
 import assert from "assert";
-import { transformFileSync } from "babel-core";
+import { transformFileSync } from "@babel/core";
+import prettier from "prettier";
 import plugin from "../src";
-
-function trim(str) {
-  return str.replace(/^\s+|\s+$/, "");
-}
 
 describe("finds React components", () => {
   const fixturesDir = path.join(__dirname, "fixtures");
@@ -26,7 +23,10 @@ describe("finds React components", () => {
         .toString()
         .replace(/%FIXTURE_PATH%/g, actualPath);
 
-      assert.equal(trim(actual), trim(expected));
+      assert.equal(
+        prettier.format(actual, { parser: "babel" }),
+        prettier.format(expected, { parser: "babel" })
+      );
     });
   });
 });

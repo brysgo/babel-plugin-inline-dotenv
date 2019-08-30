@@ -1,14 +1,16 @@
-"use strict";
-
-// Example 1: Creating a new class (declaration-form)
+"use strict"; // Example 1: Creating a new class (declaration-form)
 // ===============================================================
-
 // A base class is defined using the new reserved 'class' keyword
 
-const EXAMPLE_ENV_VAR = process && process.env && process.env.EXAMPLE_ENV_VAR || "simple example";
-const EXAMPLE_ENV_VAR_EXPAND = process && process.env && process.env.EXAMPLE_ENV_VAR_EXPAND || "simple example-expand";
-const EXAMPLE_ENV_VAR_SECRET = process && process.env && process.env.EXAMPLE_ENV_VAR_SECRET || undefined;
-const EXAMPLE_ENV_VAR_SYSTEM = process && process.env && process.env.EXAMPLE_ENV_VAR_SYSTEM || "default";
+const EXAMPLE_ENV_VAR =
+  (process && process.env && process.env.EXAMPLE_ENV_VAR) || "simple example";
+const EXAMPLE_ENV_VAR_EXPAND =
+  (process && process.env && process.env.EXAMPLE_ENV_VAR_EXPAND) ||
+  "simple example-expand";
+const EXAMPLE_ENV_VAR_SECRET =
+  (process && process.env && process.env.EXAMPLE_ENV_VAR_SECRET) || undefined;
+const EXAMPLE_ENV_VAR_SYSTEM =
+  (process && process.env && process.env.EXAMPLE_ENV_VAR_SYSTEM) || "default";
 
 class Polygon {
   // ..and an (optional) custom class constructor. If one is
@@ -18,10 +20,9 @@ class Polygon {
     this.name = "Polygon";
     this.height = height;
     this.width = width;
-  }
-
-  // Simple class instance methods using short-hand method
+  } // Simple class instance methods using short-hand method
   // declaration
+
   sayName() {
     console.log("Hi, I am a ", this.name + ".");
   }
@@ -30,22 +31,17 @@ class Polygon {
     console.log(`
       "Polygon" is derived from the Greek polus (many) and gonia (angle).
     `);
-  }
+  } // We will look at static and subclassed methods shortly
+} // Classes are used just like ES5 constructor functions:
 
-  // We will look at static and subclassed methods shortly
-}
-
-// Classes are used just like ES5 constructor functions:
 let p = new Polygon(300, 400);
 p.sayName();
-console.log("The width of this polygon is " + p.width);
-
-// Example 2: Creating a new class (expression-form)
+console.log("The width of this polygon is " + p.width); // Example 2: Creating a new class (expression-form)
 // ===============================================================
-
 // Our Polygon class above is an example of a Class declaration.
 // ES6 classes also support Class expressions - just another way
 // of defining a new class. For example:
+
 const MyPoly = class Poly {
   getPolyName() {
     console.log(`
@@ -53,18 +49,15 @@ const MyPoly = class Poly {
     `);
   }
 };
-
 let inst = new MyPoly();
-inst.getPolyName();
-
-// Example 3: Extending an existing class
+inst.getPolyName(); // Example 3: Extending an existing class
 // ===============================================================
-
 // Classes support extending other classes, but can also extend
 // other objects. Whatever you extend must be a constructor.
 //
 // Let's extend the Polygon class to create a new derived class
 // called Square.
+
 class Square extends Polygon {
   constructor(length) {
     // The reserved 'super' keyword is for making super-constructor
@@ -72,14 +65,13 @@ class Square extends Polygon {
     //
     // Here, it will call the parent class' constructor with lengths
     // provided for the Polygon's width and height
-    super(length, length);
-    // Note: In derived classes, super() must be called before you
+    super(length, length); // Note: In derived classes, super() must be called before you
     // can use 'this'. Leaving this out will cause a reference error.
-    this.name = "Square";
-  }
 
-  // Getter/setter methods are supported in classes,
+    this.name = "Square";
+  } // Getter/setter methods are supported in classes,
   // similar to their ES5 equivalents
+
   get area() {
     return this.height * this.width;
   }
@@ -90,20 +82,17 @@ class Square extends Polygon {
 }
 
 let s = new Square(5);
-
 s.sayName();
-console.log("The area of this square is " + s.area);
-
-// Example 4: Subclassing methods of a parent class
+console.log("The area of this square is " + s.area); // Example 4: Subclassing methods of a parent class
 // ===============================================================
 
 class Rectangle extends Polygon {
   constructor(height, width) {
     super(height, width);
     this.name = "Rectangle";
-  }
-  // Here, sayName() is a subclassed method which
+  } // Here, sayName() is a subclassed method which
   // overrides their superclass method of the same name.
+
   sayName() {
     console.log("Sup! My name is ", this.name + ".");
     super.sayHistory();
@@ -111,13 +100,11 @@ class Rectangle extends Polygon {
 }
 
 let r = new Rectangle(50, 60);
-r.sayName();
-
-// Example 5: Defining static methods
+r.sayName(); // Example 5: Defining static methods
 // ===============================================================
-
 // Classes support static members which can be accessed without an
 // instance being present.
+
 class Triple {
   // Using the 'static' keyword creates a method which is associated
   // with a class, but not with an instance of the class.
@@ -125,10 +112,9 @@ class Triple {
     n = n || 1;
     return n * 3;
   }
-}
-
-// super.prop in this example is used for accessing super-properties from
+} // super.prop in this example is used for accessing super-properties from
 // a parent class. This works fine in static methods too:
+
 class BiggerTriple extends Triple {
   static triple(n) {
     return super.triple(n) * super.triple(n);
@@ -137,14 +123,12 @@ class BiggerTriple extends Triple {
 
 console.log(Triple.triple());
 console.log(Triple.triple(6));
-console.log(BiggerTriple.triple(3));
-// var tp = new Triple();
+console.log(BiggerTriple.triple(3)); // var tp = new Triple();
 // console.log(tp.triple()); tp.triple is not a function
-
 // Example 6: Subclassing built-in classes and DOM
 // ===============================================================
-
 // Extend Date built-in
+
 class MyDate extends Date {
   constructor() {
     super();
@@ -165,9 +149,8 @@ class MyDate extends Date {
 
 var aDate = new MyDate();
 console.log(aDate.getTime());
-console.log(aDate.getFormattedDate());
+console.log(aDate.getFormattedDate()); // Extend Uint8Array
 
-// Extend Uint8Array
 class ExtendedUint8Array extends Uint8Array {
   constructor() {
     super(10);
@@ -177,9 +160,8 @@ class ExtendedUint8Array extends Uint8Array {
 }
 
 var eua = new ExtendedUint8Array();
-console.log(eua.byteLength);
+console.log(eua.byteLength); // Extend DOM Audio element
 
-// Extend DOM Audio element
 class MyAudio extends Audio {
   constructor() {
     super();
@@ -199,9 +181,7 @@ var player = new MyAudio();
 player.controls = true;
 player.lyrics = "Never gonna give you up";
 document.querySelector("body").appendChild(player);
-console.log(player.lyrics);
-
-// Note: The V8 in Chrome 42 supports subclassing built-ins but Arrays.
+console.log(player.lyrics); // Note: The V8 in Chrome 42 supports subclassing built-ins but Arrays.
 // Subclassing arrays supported in Chrome 43.
 
 class Stack extends Array {
