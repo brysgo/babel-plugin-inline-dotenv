@@ -2,8 +2,6 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/brysgo/babel-plugin-inline-dotenv.svg)](https://greenkeeper.io/)
 
-[![status](https://circleci.com/gh/brysgo/babel-plugin-inline-dotenv.svg?style=shield)](https://circleci.com/gh/brysgo/babel-plugin-inline-dotenv)
-
 Load your `.env` file and replace `process.env.MY_VARIABLE` with the value you set.
 
 tl;dr
@@ -65,7 +63,8 @@ The plugin support 3 mode to read the env var from the system :
 ```
 
 - `all` _default_, every env var found in process.env will be used
-> ⚠️ This could leak super secret stuffs !
+
+  > ⚠️ This could leak super secret stuffs !
 
 - `overwrite`, the value in process.env will overwrite the one present in .env only. Your .env file act as a whitelist
 
