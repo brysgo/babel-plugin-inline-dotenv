@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-inline-dotenv",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Load your `.env` file and replace `process.env.MY_VARIABLE` with the value you set.",
   "main": "src/index.js",
   "scripts": {
