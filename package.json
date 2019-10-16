@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/brysgo/babel-plugin-inline-dotenv#readme",
   "dependencies": {
-    "dotenv": "^8.1.0"
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
