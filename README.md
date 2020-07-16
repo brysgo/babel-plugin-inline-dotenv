@@ -1,6 +1,6 @@
 # babel-plugin-inline-dotenv
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/brysgo/babel-plugin-inline-dotenv.svg)](https://greenkeeper.io/)
+![Test](https://github.com/brysgo/babel-plugin-inline-dotenv/workflows/Test/badge.svg)
 
 Load your `.env` file and replace `process.env.MY_VARIABLE` with the value you set.
 
