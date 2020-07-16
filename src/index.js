@@ -24,7 +24,7 @@ function loadDotenvContent (opts){
     var dotenvExpand;
     try { dotenvExpand = require('dotenv-expand'); } catch(e) {}
     if (dotenvExpand)
-      dotenvContent = dotenvExpand({parsed:dotenvContent, ignoreProcessEnv:true}).parsed;
+      dotenvContent = dotenvExpand({parsed:dotenvContent, ignoreProcessEnv:opts.systemVar!=="all"}).parsed;
 }
 
 function getValue(dotenvContent, systemContent, opts, name) {
