@@ -2,6 +2,9 @@
 
 ![Test](https://github.com/brysgo/babel-plugin-inline-dotenv/workflows/Test/badge.svg)
 
+[![npm package](https://nodei.co/npm/babel-plugin-inline-dotenv.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/babel-plugin-inline-dotenv/)
+
+
 Load your `.env` file and replace `process.env.MY_VARIABLE` with the value you set.
 
 tl;dr
