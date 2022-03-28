@@ -23,8 +23,13 @@ function loadDotenvContent (opts){
     dotenvContent = fileContent ? require('dotenv').parse(fileContent, {debug:debug}) : {};
     var dotenvExpand;
     try { dotenvExpand = require('dotenv-expand'); } catch(e) {}
-    if (dotenvExpand)
-      dotenvContent = dotenvExpand({parsed:dotenvContent, ignoreProcessEnv:opts.systemVar!=="all"}).parsed;
+    if (dotenvExpand) {
+      if (typeof dotenvExpand === 'function') {
+        dotenvContent = dotenvExpand({parsed:dotenvContent, ignoreProcessEnv:opts.systemVar!=="all"}).parsed;
+      } else if (Object.prototype.hasOwnProperty.call(dotenvExpand, 'expand')) {
+        dotenvContent = dotenvExpand.expand({parsed:dotenvContent, ignoreProcessEnv:opts.systemVar!=="all"}).parsed;
+      }
+    }
 }
 
 function getValue(dotenvContent, systemContent, opts, name) {

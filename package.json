@@ -23,7 +23,15 @@
   },
   "homepage": "https://github.com/brysgo/babel-plugin-inline-dotenv#readme",
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^16.0.0"
+  },
+  "peerDependencies": { 
+    "dotenv-expand": ">= 5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "dotenv-expand": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -31,8 +39,8 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/register": "^7.10.5",
     "babel-eslint": "^10.1.0",
-    "dotenv-expand": "^5.1.0",
-    "mocha": "8.1.1",
+    "dotenv-expand": "^8.0.1",
+    "mocha": "9.2.0",
     "prettier": "^2.0.5"
   }
 }
